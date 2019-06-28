@@ -26,12 +26,31 @@
 		<div class="story_box hidden" id=2>
 			<p>I started my journey by deciding that I wanted to become a developer. I'd thought a lot about it and it was always something that interested me. I began looking for opportunities.</p>
 		</div>
+		<!-- MUD Game -->
+		<div class="story_box hidden" id=3>
+			<!-- Room Description -->
+			<div class="mudBox" id="roomDescriptionDiv">
+				<p id="roomDescription">Entrance to the Enterprise<br><br>As you slowly open your eyes, you find yourself in a large, poorly-lit room on the starship Enterprise. Overhead, a harsh strobe light flashes on and off, revealing your surroundings one second at a time. Grimy metal walls with exposed electrical pipes, strange slimy mold puddles on the floor, and an acrid smell permeates the air. Dazed, you shake off your stupor, and attempt to figure out what’s going on. A small corridor opens up in front of you. Looking to the left, you notice another hallway, more brightly lit than the one to your north. Behind you, a large metal door blocks the way. <br><br>You may travel (N)orth or (W)est</p>
+			</div>
+			<!-- Combat -->
+			<div class="mudBox" id="combat">
+				<p></p>
 
+			</div>
+			<!-- User Input -->
+			<div class="mudBox" id="mudCommands">
+				<p> < </p><!-- hp --></p><p>% hp></p> <p id='cursor'>_</p><input type="text" name="mudCommand" id=mudInput>
+			</div>
+
+
+		</div>
+		<!-- End MUD Game -->
 		<div>
 			<button id=the_button>Continue!</button>
 		</div>
 	</div>
 	<script src="javascript.js"></script>
+	<script src="rooms.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 
