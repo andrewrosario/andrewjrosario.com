@@ -11,7 +11,7 @@
 					"W": "three"}
 		},
 		"three": {
-			desc: "You are standing in a small corner room. A floor lamp in the corner has been turned on and is providing enough light for you to see your surroundings.<br><br>You may travel (S)outh or (E)ast</p>",
+			desc: "You are standing in a small corner room. A floor lamp in the corner has been turned on and is providing enough light for you to see your surroundings.<br><br>You may travel (S)outh or (E)ast<br><br></p><p class='left'>A small fleshy beast stands here.</p>",
 			exits: {"S": "four",
 				 	"E": "two"}
 		},

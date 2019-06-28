@@ -12,7 +12,7 @@ document.getElementById("the_button").addEventListener("click", function() {
 	if(storyStep === 3) {
 		document.getElementById("the_button").classList.add("hidden")
 		frame()
-		window.addEventListener('keydown', move);
+		window.addEventListener('keydown', actions);
 	}
 	element = document.getElementById(storyStep);
 	element.classList.remove("hidden");
@@ -22,10 +22,11 @@ document.getElementById("the_button").addEventListener("click", function() {
 
 // MUD game
 
-currentRoom = 'one'
-health = 100
-
+var currentRoom = 'one';
+var currentHealth = 100;
 var blinkingCursor = setInterval(frame, 750);
+var health = document.getElementById('health');
+health.innerHTML = currentHealth;
 
 function frame() {
 	cursor = document.getElementById('cursor')
@@ -69,25 +70,22 @@ function move(key) {
 	} else {
 		updateActionLog(`You cannot go ${direction}`);		
 	}
-
-
-	// for(const prop in keys) {
-	// 	if(keys[prop] === direction[0]) {
-	// 		loadRoom(newRoom);
-	// 		updateActionLog(`You go ${direction}`);
-	// 		currentRoom = newRoom;
-	// 		break;
-	// 	} else {
-	// 		console.log("else")
-	// 		updateActionLog(`You can/'t go ${direction}`);
-	// 	}
-	// }
-}
+};
 
 function loadRoom(room) {
 	document.getElementById("roomDescription").innerHTML = rooms[room]['desc']
 }
 
+function actions(key) {
+	switch(key.which) {
+		case 78:
+		case 83:
+		case 69:
+		case 87:
+			move(key);
+			break;
+	}
+}
 
 
 

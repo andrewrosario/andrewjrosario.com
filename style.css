@@ -22,13 +22,17 @@ div {
 .wrapper {
 	background: black;
 }
-.story_box{
+div.story_box{
 	height: 400px;
 	background-color: black;
 	color: white;
 	padding-top: 50px;
 	padding-right: 10px;
 	padding-left: 10px;
+}
+
+div.mudBox {
+		text-align: left;
 }
 
 .hidden {
@@ -73,3 +77,6 @@ p.blink {
 	color: none;
 }
 
+p.left {
+	text-align: left;
+}
