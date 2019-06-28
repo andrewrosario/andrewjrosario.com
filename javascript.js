@@ -23,10 +23,14 @@ document.getElementById("the_button").addEventListener("click", function() {
 // MUD game
 
 var currentRoom = 'one';
-var currentHealth = 100;
+var currentHealth = 20;
 var blinkingCursor = setInterval(frame, 750);
 var health = document.getElementById('health');
 health.innerHTML = currentHealth;
+
+function calculateDamage() {
+	return Math.floor(Math.random() * 10)+1;
+}
 
 function frame() {
 	cursor = document.getElementById('cursor')
@@ -76,6 +80,42 @@ function loadRoom(room) {
 	document.getElementById("roomDescription").innerHTML = rooms[room]['desc']
 }
 
+function help() {
+	var helpText = "You may move by pressing N, S, E, W. K will attempt to kill a creature if one is in the room. X will exit the game (as will death).";
+	updateActionLog(helpText);
+}
+
+function kill() {
+	var creatureHealth = 100;
+	var battle = setInterval(function() {
+		var damage = calculateDamage()
+		var playerDamage = calculateDamage()
+		updateActionLog(`A small fleshy creature bites you for ${damage} damage.`);
+		updateActionLog(`You hit a small fleshy creature for ${playerDamage} damage.`)
+		currentHealth -= damage;
+		health.innerHTML = currentHealth;
+		if(currentHealth <= 0) {
+			console.log('clear')
+			clearInterval(battle)
+		}
+	}, 750)
+
+	console.log(battle)
+}
+
+
+function creatureAttack(battle) {
+	var damage = Math.floor(Math.random() * 10)+1;
+	updateActionLog(`A small fleshy creature bites you for ${damage} damage.`);
+	currentHealth -= damage;
+	health.innerHTML = currentHealth;
+	if(currentHealth <= 0) {
+		console.log('clear');
+		updateActionLog("You are DEAD!!");
+		clearInterval(battle);
+	} else if()
+}
+
 function actions(key) {
 	switch(key.which) {
 		case 78:
@@ -83,6 +123,10 @@ function actions(key) {
 		case 69:
 		case 87:
 			move(key);
+			break;
+		case 72:
+			console.log("Help!")
+			help();
 			break;
 	}
 }
