@@ -47,23 +47,41 @@ function getDirection(key) {
 	};
 }
 
+function updateActionLog(string) {
+	var newLine = document.createElement('p');
+	newLine.innerHTML = string + "<br>";
+	var combat = document.getElementById('combat');
+	if (combat.childNodes.length > 2) {
+		combat.removeChild(combat.childNodes[0])
+	}
+	document.getElementById("combat").appendChild(newLine);
+}
+
 function move(key) {
 	var direction = getDirection(key);
 	var keys = Object.keys(rooms[currentRoom]['exits'])
 	var newRoom = rooms[currentRoom]['exits'][direction[0]]
 	var combat = document.getElementById('combat');
-	
-	for(const prop in keys) {
-  		console.log(`keys.${prop} = ${keys[prop]}`);
-		if(keys[prop] === direction[0]) {
-			loadRoom(newRoom);
-			combat.innerHTML = `You walk ${direction}`;
-			currentRoom = newRoom;
-			break;
-		} else {
-			combat.innerHTML = `You cannot walk ${direction}`;
-		}
+	if((keys[0] === direction[0]) || (keys[1] === direction[0])) {
+		loadRoom(newRoom);
+		updateActionLog(`You go ${direction}`);
+		currentRoom = newRoom;
+	} else {
+		updateActionLog(`You cannot go ${direction}`);		
 	}
+
+
+	// for(const prop in keys) {
+	// 	if(keys[prop] === direction[0]) {
+	// 		loadRoom(newRoom);
+	// 		updateActionLog(`You go ${direction}`);
+	// 		currentRoom = newRoom;
+	// 		break;
+	// 	} else {
+	// 		console.log("else")
+	// 		updateActionLog(`You can/'t go ${direction}`);
+	// 	}
+	// }
 }
 
 function loadRoom(room) {
