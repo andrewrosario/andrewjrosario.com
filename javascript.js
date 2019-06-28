@@ -32,40 +32,38 @@ function frame() {
     cursor.classList.toggle('blink')
 }
 
-
-function move(key) {
+function getDirection(key) {
 	switch(key.which) {
 		case 78:
-			var direction = "North";
-			break;
+			return "North";
 		case 83:
-			var direction = "South";
-			break;
+			return "South";
 		case 69:
-			var direction = "East";
-			break;
+			return "East";
 		case 87:
-			var direction = "West";
-			break;
+			return "West";
 		default:
-			var direction = "Invalid Direction"
+			return "Invalid Direction"
 	};
+}
+
+function move(key) {
+	var direction = getDirection(key);
 	var keys = Object.keys(rooms[currentRoom]['exits'])
+	var newRoom = rooms[currentRoom]['exits'][direction[0]]
+	var combat = document.getElementById('combat');
+	
 	for(const prop in keys) {
   		console.log(`keys.${prop} = ${keys[prop]}`);
 		if(keys[prop] === direction[0]) {
-			loadRoom(rooms[currentRoom]['exits'][direction[0]]);
-			combat = document.getElementById('combat');
+			loadRoom(newRoom);
 			combat.innerHTML = `You walk ${direction}`;
-			currentRoom = rooms[currentRoom]['exits'][direction[0]];
+			currentRoom = newRoom;
 			break;
 		} else {
-			combat = document.getElementById('combat');
 			combat.innerHTML = `You cannot walk ${direction}`;
 		}
 	}
-
-
 }
 
 function loadRoom(room) {
