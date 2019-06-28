@@ -50,20 +50,20 @@ function move(key) {
 		default:
 			var direction = "Invalid Direction"
 	};
-	Object.keys(rooms[currentRoom]['exits']).forEach(function(key){
-		console.log(key)
-		console.log(direction)
-		if(key === direction[0]) {
+	var keys = Object.keys(rooms[currentRoom]['exits'])
+	for(const prop in keys) {
+  		console.log(`keys.${prop} = ${keys[prop]}`);
+		if(keys[prop] === direction[0]) {
 			loadRoom(rooms[currentRoom]['exits'][direction[0]]);
 			combat = document.getElementById('combat');
 			combat.innerHTML = `You walk ${direction}`;
 			currentRoom = rooms[currentRoom]['exits'][direction[0]];
+			break;
 		} else {
 			combat = document.getElementById('combat');
 			combat.innerHTML = `You cannot walk ${direction}`;
 		}
-		return;
-	})
+	}
 
 
 }
