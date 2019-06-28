@@ -2,9 +2,19 @@ var storyStep = 0
 name = "friend"
 
 // The Continue Button Functionality
-document.getElementById("the_button").addEventListener("click", function() {
+
+function hidePreviousStep() {
 	element = document.getElementById(storyStep);
 	element.classList.add("hidden");
+};
+
+function revealNextStep() {
+	element = document.getElementById(storyStep);
+	element.classList.remove("hidden");
+};
+
+document.getElementById("the_button").addEventListener("click", function() {
+	hidePreviousStep();
 	if(document.getElementById("name").value) {
 		name = document.getElementById("name").value
 	}
@@ -14,8 +24,7 @@ document.getElementById("the_button").addEventListener("click", function() {
 		frame()
 		window.addEventListener('keydown', actions);
 	}
-	element = document.getElementById(storyStep);
-	element.classList.remove("hidden");
+	revealNextStep();
 	document.getElementById("nameOutput").innerHTML = name;
 	});
 
@@ -23,7 +32,7 @@ document.getElementById("the_button").addEventListener("click", function() {
 // MUD game
 
 var currentRoom = 'one';
-var currentHealth = 20;
+var currentHealth = 100;
 var blinkingCursor = setInterval(frame, 750);
 var health = document.getElementById('health');
 health.innerHTML = currentHealth;
@@ -85,6 +94,15 @@ function help() {
 	updateActionLog(helpText);
 }
 
+function exit() {
+	window.removeEventListener('keydown', actions);
+	hidePreviousStep();
+	storyStep += 1;
+	revealNextStep();
+	document.getElementById("the_button").classList.remove("hidden")
+
+}
+
 function kill() {
 	var creatureHealth = 100;
 	var battle = setInterval(function() {
@@ -92,29 +110,24 @@ function kill() {
 		var playerDamage = calculateDamage()
 		updateActionLog(`A small fleshy creature bites you for ${damage} damage.`);
 		updateActionLog(`You hit a small fleshy creature for ${playerDamage} damage.`)
+		creatureHealth -= playerDamage;
+		updateActionLog(`A small fleshy creature has ${creatureHealth} health.`)
 		currentHealth -= damage;
 		health.innerHTML = currentHealth;
 		if(currentHealth <= 0) {
 			console.log('clear')
+			updateActionLog("You are DEAD!!")
 			clearInterval(battle)
-		}
-	}, 750)
+			exit()
+		} else if(creatureHealth <= 0) {
+			console.log('clear')
+			updateActionLog("A small fleshy creature is DEAD!!")
+			clearInterval(battle)			
+		}	
+	}, 1000)
 
 	console.log(battle)
-}
-
-
-function creatureAttack(battle) {
-	var damage = Math.floor(Math.random() * 10)+1;
-	updateActionLog(`A small fleshy creature bites you for ${damage} damage.`);
-	currentHealth -= damage;
-	health.innerHTML = currentHealth;
-	if(currentHealth <= 0) {
-		console.log('clear');
-		updateActionLog("You are DEAD!!");
-		clearInterval(battle);
-	} else if()
-}
+};
 
 function actions(key) {
 	switch(key.which) {
@@ -125,8 +138,13 @@ function actions(key) {
 			move(key);
 			break;
 		case 72:
-			console.log("Help!")
 			help();
+			break;
+		case 75:
+			kill();
+			break;
+		case 88:
+			exit();
 			break;
 	}
 }
