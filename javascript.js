@@ -108,8 +108,8 @@ function kill() {
 	var battle = setInterval(function() {
 		var damage = calculateDamage()
 		var playerDamage = calculateDamage()
-		updateActionLog(`A small fleshy creature bites you for ${damage} damage.`);
-		updateActionLog(`You hit a small fleshy creature for ${playerDamage} damage.`)
+		updateActionLog(`A small fleshy creature bites you for <span class = 'damage'>${damage}</span> damage.`);
+		updateActionLog(`You hit a small fleshy creature for <span class = 'damage'>${playerDamage}</span> damage.`)
 		creatureHealth -= playerDamage;
 		updateActionLog(`A small fleshy creature has ${creatureHealth} health.`)
 		currentHealth -= damage;

@@ -80,3 +80,7 @@ p.blink {
 p.left {
 	text-align: left;
 }
+
+span.damage {
+	color: red;
+}
